@@ -420,5 +420,12 @@
                 },
             "DependsOn" : "InstanceSecurityGroup"
         }
+    },
+    "Outputs": {
+        "AutoScalingGroupId": {
+          "Value": {
+            "Ref": "ClusterGroup"
+          }
+        }
     }
 }

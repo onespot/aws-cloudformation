@@ -37,7 +37,7 @@
             "Type" : "String",
             "Default" : "t2.large",
             "AllowedValues" : [ "t2.micro", "t2.small", "t2.medium", "t2.large",
-                                "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge", 
+                                "m3.medium", "m3.large", "m3.xlarge", "m3.2xlarge",
                                 "m4.large", "m4.xlarge", "m4.2xlarge", "m4.4xlarge", "m4.10xlarge",
                                 "c3.large", "c3.xlarge", "c3.2xlarge", "c3.4xlarge", "c3.8xlarge",
                                 "c4.large", "c4.xlarge", "c4.2xlarge", "c4.4xlarge", "c4.8xlarge",
@@ -74,7 +74,7 @@
     "Conditions" : {
         "NotUsingEBS" : { "Fn::Equals" : [ { "Ref" : "EBS" }, 0  ] }
     },
-  
+
     "Resources" : {
         "ClusterRole" : {
             "Type": "AWS::IAM::Role",
@@ -191,7 +191,7 @@
                                    "    sed -i \"/interval/i \\\t\tmesh-seed-address-port $i 3002\" $CONF; done\n",
                                    "  CODE=$(curl -Is ",{ "Ref" :"NamespaceFile" }," | head -n 1 | cut -d$' ' -f2)\n",
                                    "  if [ \"$CODE\" != \"200\" ]; then echo 'Namespace File not found' >> /var/log/awsuserdatascript\n",
-                                   "  else sed -i '/namespace test/,$d' $CONF\n", 
+                                   "  else sed -i '/namespace test/,$d' $CONF\n",
                                    "    curl -s ",{ "Ref" :"NamespaceFile" }," >> $CONF; fi\n",
                                    "  /etc/init.d/aerospike start\n",
                                    "  /etc/init.d/amc start\n",
@@ -347,7 +347,7 @@
                     "         --stack ", { "Ref" : "AWS::StackName" },
                     "         --resource LaunchConfig ",
                     "         --region ", { "Ref" : "AWS::Region" }, "\n",
-  
+
                     "/opt/aws/bin/cfn-signal -e $? ",
                     "         --stack ", { "Ref" : "AWS::StackName" },
                     "         --resource ClusterGroup ",
@@ -454,5 +454,12 @@
             },
             "DependsOn" : "InstanceSecurityGroup"
         }
+    },
+    "Outputs": {
+      "AutoScalingGroupId": {
+        "Value": {
+          "Ref": "ClusterGroup"
+        }
+      }
     }
 }
